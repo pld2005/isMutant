@@ -17,7 +17,7 @@ try {
 export function init(app: express.Application): void {
     const router: express.Router = express.Router();
 
-    app.use('/api/mutant', DnaRouter);
+    app.use('/api', DnaRouter);
 
     
 

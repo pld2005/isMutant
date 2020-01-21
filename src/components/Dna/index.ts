@@ -8,44 +8,23 @@ export async function mutant(req: Request, res: Response, next: NextFunction): P
         const isMutant: boolean = await DnaService.mutant(req.body);
 
         if (isMutant) { 
-            res.status(200).json({ result: 'Ok' });
+            res.sendStatus(200);
         }else {
-            res.status(400);
+            res.sendStatus(403);
         }    
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
     }
 }
 
+export async function stats(req: Request, res: Response, next: NextFunction): Promise < void > {
+    try {
+        const stats: IDnaModel = await DnaService.stats();
 
-// export async function findAll(req: Request, res: Response, next: NextFunction): Promise < void > {
-//     try {
-//         const dnas: IDnaModel[] = await DnaService.findAll();
-
-//         res.status(200).json(dnas);
-//     } catch (error) {
-//         next(new HttpError(error.message.status, error.message));
-//     }
-// }
-
-// export async function findOne(req: Request, res: Response, next: NextFunction): Promise < void > {
-//     try {
-//         const dna: IDnaModel = await DnaService.findOne(req.params.id);
-
-//         res.status(200).json(dna);
-//     } catch (error) {
-//         next(new HttpError(error.message.status, error.message));
-//     }
-// }
-
-// export async function create(req: Request, res: Response, next: NextFunction): Promise < void > {
-//     try {
-//         const dna: IDnaModel = await DnaService.insert(req.body);
-
-//         res.status(201).json(dna);
-//     } catch (error) {
-//         next(new HttpError(error.message.status, error.message));
-//     }
-// }
+        res.status(200).json(stats);
+    } catch (error) {
+        next(new HttpError(error.message.status, error.message));
+    }
+}
 
 

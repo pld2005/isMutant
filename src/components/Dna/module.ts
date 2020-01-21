@@ -5,12 +5,14 @@ const minSequence : number = 2;
 // cantidad de secuencias encontradas
 let mutantSequenceFound : number = 0;
 
-export function isMutant(dna: string[]): boolean {
+export function isMutant(dna: string): boolean {
+    const dnaArray : string[] = Array.from(dna);
+
     mutantSequenceFound = 0;
-    horizontalSearch(dna); // buscar secuencias en filas
-    verticalSearch(dna); // buscar secuencias en columnas
-    diagonalSearch(dna); // buscar secuencias en diagonal / 
-    diagonalSearch(dna.reverse()); // buscar secuencias en diagonal secundaria (se invierte matriz para reutilizar metodo anterior) \ 
+    horizontalSearch(dnaArray); // buscar secuencias en filas
+    verticalSearch(dnaArray); // buscar secuencias en columnas
+    diagonalSearch(dnaArray); // buscar secuencias en diagonal / 
+    diagonalSearch(dnaArray.reverse()); // buscar secuencias en diagonal secundaria (se invierte matriz para reutilizar metodo anterior) \ 
     console.log(mutantSequenceFound);
 
     return mutantSequenceFound >= minSequence;

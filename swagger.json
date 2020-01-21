@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Node-Typescript API",
+    "title": "isMutant",
     "version": "1.0.0",
-    "description": "A sample API"
+    "description": "Test mercadolibre"
   },
   "servers": [
     {
@@ -11,48 +11,45 @@
     }
   ],
   "paths": {
-    "/auth/signup/": {
+    "/api/mutant/": {
       "post": {
-        "description": "sign up user to application",
+        "description": "Verificar si sequencia de ADN es mutante",
         "tags": [
-          "auth"
+          "isMutant"
         ],
         "requestBody": {
-          "description": "sign up body",
+          "description": "Sequencia ADN",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserSchema"
+                "$ref": "#/components/schemas/DnaSchema"
               },
               "example": {
-                "email": "test.user@mail.com",
-                "password": "test_test"
+                "dna": ["AAAA", "GTCA", "TGCA", "GGTA"]
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "user successfuly signed in",
+            "description": "Es mutante",
             "content": {
               "appication/json": {
                 "example": {
                   "status": 200,
-                  "logged": true,
-                  "message": "Sign in successfull!!"
+                  "message": "OK"
                 }
               }
             }
           },
-          "400": {
-            "description": "sign in failed",
+          "403": {
+            "description": "NO es mutante",
             "content": {
               "application/json": {
                 "example": {
-                  "status": 400,
-                  "logged": false,
-                  "message": "Email already exists"
+                  "status": 403,
+                  "message": "Forbidden"
                 }
               }
             }
@@ -60,217 +57,29 @@
         }
       }
     },
-    "/auth/login/": {
-      "post": {
-        "description": "Login user to application",
-        "tags": [
-          "auth"
-        ],
-        "requestBody": {
-          "description": "login body",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserSchema"
-              },
-              "example": {
-                "email": "test.user@mail.com",
-                "password": "test_test"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "user successfuly logged",
-            "content": {
-              "appication/json": {
-                "example": {
-                  "status": 200,
-                  "logged": true,
-                  "message": "Successfully logged!"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Not logged, invalid credentials",
-            "content": {
-              "application/json": {
-                "example": {
-                  "status": 401,
-                  "logged": false,
-                  "message": "Invalid credentials"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/users": {
+    "/api/stats": {
       "get": {
-        "description": "Get all stored users in Database",
+        "description": "Obtener estadísticas de verificaciones de ADN",
         "tags": [
-          "users"
-        ],
-        "security": [
-          {
-            "ApiKeyAuth": []
-          }
+          "stats"
         ],
         "responses": {
           "200": {
-            "description": "An array of users",
+            "description": "Un objeto con estadísticas",
             "content": {
               "application/json": {
                 "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/Users"
+                  "properties" : {
+                    "mutacount_mutant_dnant": {
+                      "type": "integer"
+                    },
+                    "count_human_dna": {
+                      "type": "integer"
+                    },
+                    "ratio": {
+                      "type": "decimal"
                     }
-                  ]
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "description": "Create new User",
-        "tags": [
-          "users"
-        ],
-        "security": [
-          {
-            "ApiKeyAuth": []
-          }
-        ],
-        "requestBody": {
-          "description": "user creation request body",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserSchema"
-              },
-              "example": {
-                "name": "userName",
-                "email": "test.user@mail.com"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "return created user",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/UserSchema"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/users/{id}": {
-      "get": {
-        "description": "Get user by userId",
-        "tags": [
-          "users"
-        ],
-        "security": [
-          {
-            "ApiKeyAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "description": "the unique userId",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "return user by id",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/UserSchema"
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "description": "Delete user by userId",
-        "tags": [
-          "users"
-        ],
-        "security": [
-          {
-            "ApiKeyAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "description": "the unique userId",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "return deleted user",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/UserSchema"
-                    }
-                  ]
+                  }
                 }
               }
             }
@@ -281,40 +90,34 @@
   },
   "components": {
     "schemas": {
-      "UserSchema": {
+      "DnaSchema": {
         "required": [
-          "email",
-          "name"
+          "dna"
         ],
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
-          },
-          "passwordResetToken": {
-            "type": "string"
-          },
-          "passwordResetExpires": {
-            "type": "string",
-            "format": "date"
-          },
-          "tokens": {
-            "type": "array"
+          "dna": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       },
-      "Users": {
+      "Stats": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/UserSchema"
+          "type": "object",
+          "properties": {
+            "mutacount_mutant_dnant": {
+              "type": "integer"
+            },
+            "count_human_dna": {
+              "type": "integer"
+            },
+            "ratio": {
+              "type": "decimal"
+            }
+          }
         }
       },
       "Error": {
@@ -335,13 +138,6 @@
             "example": "User created"
           }
         }
-      }
-    },
-    "securitySchemes": {
-      "ApiKeyAuth": {
-        "type": "apiKey",
-        "in": "header",
-        "name": "x-access-token"
       }
     }
   },

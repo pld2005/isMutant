@@ -7,7 +7,7 @@ import { IDnaModel } from './model';
 export interface IDnaService {
     mutant(IDnaModel: IDnaModel): Promise < boolean >;
 
-    // findAll(): Promise<IDnaModel[]>;
+    stats(): Promise<any>;
 
     // findOne(dna: string): Promise<IDnaModel>;
 

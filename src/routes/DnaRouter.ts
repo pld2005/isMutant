@@ -5,7 +5,8 @@ const router: Router = Router();
 
 // router.get('/mutant', DnaComponent.mutant);
 
-router.post('', DnaComponent.mutant);
+router.post('/mutant', DnaComponent.mutant);
+router.get('/stats', DnaComponent.stats);
 
 // router.get('/:id', DnaComponent.findOne);
 

@@ -3,23 +3,19 @@ import { Document, Schema } from 'mongoose';
 import { NextFunction } from 'express';
 
 export interface IDnaModel extends Document {
-    dna: string[];
-    stats: {
-        mutant: number,
-        human: number,
-    };
+    dna: string;
+    mutant: number;
+    human: number;
 }
 
 
 const DnaSchema: Schema = new Schema({
-    dna: [],
-    stats: {
-        mutant: Number,
-        human: Number,
-    },
+    dna: String,
+    mutant: Number,
+    human: Number
 }, {
     collection: 'Dnas',
-    versionKey: true
+    versionKey: false
 });
 
 

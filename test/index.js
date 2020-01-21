@@ -1,2 +1,1 @@
-require('./authentication');
 require('./api');

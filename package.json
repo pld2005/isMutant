@@ -21,7 +21,7 @@
     "build": "tsc --skipLibCheck",
     "start": "tsc --skipLibCheck && node ./build/config/server/index.js",
     "ts:watch": "tsc -w",
-    "test": "NODE_ENV=test mocha -r ts-node/register test/index.js --exit",
+    "test": "nodemon --watch . --ext ts --exec \"mocha -r ts-node/register test/**/*.js\"",
     "dev:debug": "nodemon --inspect ./src/config/server/index.ts"
   },
   "files": [

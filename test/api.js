@@ -1,37 +1,35 @@
 const chai = require('chai');
 const request = require('supertest');
 const app = require('../src/config/server/server').default;
-const UserModel = require('../src/components/User/model').default;
+const DnaModel = require('../src/components/Dna/model').default;
 chai.should();
 
 /**
  * API tests
  */
 describe('API', () => {
-    it('get all users', (done) => {
+    it('is mutant', (done) => {
+        const dna = {
+            dna: ["ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"]
+        }
         request(app)
-            .get('/v1/users')
-            .set('x-access-token', global.token)
+            .post('/api/mutant')
+            .send(dna)
             .expect((res) => {
                 res.status.should.equal(200);
-                res.body.should.be.an('array');
             })
             .end(done);
     });
 
-    it('create new user', (done) => {
-        const newUser = {
-            email: 'new.user@gmail.com',
-            name: 'John Doe'
-        };
-
+    it('Not is mutant', (done) => {
+        const dna = {
+            dna: ["ATCG","GCTA","TGCA","CAGT"]
+        }
         request(app)
-            .post('/v1/users')
-            .send(newUser)
-            .set('x-access-token', global.token)
+            .post('/api/mutant')
+            .send(dna)
             .expect((res) => {
-                res.status.should.equal(201);
-                res.body.should.have.property('email');
+                res.status.should.equal(403);
             })
             .end(done);
     });
@@ -40,10 +38,10 @@ describe('API', () => {
 /**
  * clear database after tests
  */
-after(async () => {
-    try {
-        await UserModel.collection.drop();
-    } catch (error) {
-        console.log('Something went wrong after tests, seems your database doesnt cleaned');
-    }
-});
+// after(async () => {
+//     try {
+//         await DnaModel.collection.drop();
+//     } catch (error) {
+//         console.log('Something went wrong after tests, seems your database doesnt cleaned');
+//     }
+// });
