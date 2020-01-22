@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.66% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>26/29</span>
+                <span class='fraction'>24/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/4</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.66% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>26/29</span>
+                <span class='fraction'>24/24</span>
             </div>
         
             
@@ -122,23 +122,13 @@
 <a name='L63'></a><a href='#L63'>63</a>
 <a name='L64'></a><a href='#L64'>64</a>
 <a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a>
-<a name='L76'></a><a href='#L76'>76</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L66'></a><a href='#L66'>66</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -166,6 +156,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -185,23 +176,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -239,16 +219,19 @@ export function configure(app: express.Application): void {
 &nbsp;
     // cors
     app.use((req, res, next) =&gt; {
+        res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS ');
         res.header(
             'Access-Control-Allow-Headers',
             'Origin, X-Requested-With,' +
             ' Content-Type, Accept,' +
-            ' Authorization,' +
-            ' Access-Control-Allow-Credentials'
+            ' Authorization, X-API-KEY,' +
+            '  Access-Control-Allow-Request-Method'
         );
-        res.header('Access-Control-Allow-Credentials', 'true');
+        res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
         next();
+       
+        
     });
 }
 &nbsp;
@@ -262,21 +245,8 @@ interface CustomResponse extends express.Response {
  */
 export function initErrorHandler(app: express.Application): void {
     app.use((error: Error, req: express.Request, res: CustomResponse, next: express.NextFunction) =&gt; {
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof error === 'number') {
-<span class="cstat-no" title="statement not covered" >            error = new HttpError(error); </span>// next(404)
-        }
-&nbsp;
-        <span class="missing-if-branch" title="else path not taken" >E</span>if (error instanceof HttpError) {
-            res.sendHttpError(error);
-        } else {
-            // if (app.get('env') === 'development') {
-            //     error = new HttpError(500, error.message);
-            //     res.sendHttpError(error);
-            // } else {
-<span class="cstat-no" title="statement not covered" >            error = new HttpError(500);</span>
-<span class="cstat-no" title="statement not covered" >            res.sendHttpError(error, error.message);</span>
-            // }
-        }
+        
+        res.sendHttpError(error, error.message);
 &nbsp;
         console.error(error);
     });
@@ -289,7 +259,7 @@ export function initErrorHandler(app: express.Application): void {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jan 22 2020 10:36:09 GMT-0300 (hora estándar de Argentina)
+                at Wed Jan 22 2020 14:49:10 GMT-0300 (hora estándar de Argentina)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

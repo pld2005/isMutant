@@ -30,20 +30,19 @@ export function configure(app: express.Application): void {
 
     // cors
     app.use((req, res, next) => {
-        // res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS ');
-        // res.header(
-        //     'Access-Control-Allow-Headers',
-        //     'Origin, X-Requested-With,' +
-        //     ' Content-Type, Accept,' +
-        //     ' Authorization,' +
-        //     ' Access-Control-Allow-Credentials'
-        // );
-        // res.header('Access-Control-Allow-Credentials', 'true');
-        // next();
         res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
-        res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+        res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS ');
+        res.header(
+            'Access-Control-Allow-Headers',
+            'Origin, X-Requested-With,' +
+            ' Content-Type, Accept,' +
+            ' Authorization, X-API-KEY,' +
+            '  Access-Control-Allow-Request-Method'
+        );
         res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+        next();
+       
+        
     });
 }
 
@@ -57,21 +56,8 @@ interface CustomResponse extends express.Response {
  */
 export function initErrorHandler(app: express.Application): void {
     app.use((error: Error, req: express.Request, res: CustomResponse, next: express.NextFunction) => {
-        if (typeof error === 'number') {
-            error = new HttpError(error); // next(404)
-        }
-
-        if (error instanceof HttpError) {
-            res.sendHttpError(error);
-        } else {
-            // if (app.get('env') === 'development') {
-            //     error = new HttpError(500, error.message);
-            //     res.sendHttpError(error);
-            // } else {
-            error = new HttpError(500);
-            res.sendHttpError(error, error.message);
-            // }
-        }
+        
+        res.sendHttpError(error, error.message);
 
         console.error(error);
     });

@@ -21,7 +21,7 @@
     "build": "tsc --skipLibCheck",
     "start": "tsc --skipLibCheck && node ./build/config/server/index.js",
     "ts:watch": "tsc -w",
-    "test": "nodemon  . --ext ts --exec \"nyc mocha -r ts-node/register test/**/*.js\"",
+    "test": "nodemon  . --ext ts --exec \"nyc  mocha -r ts-node/register test/**/*.js\"",
     "coverage": "nyc --reporter=lcov --reporter=text-lcov npm test",
     "dev:debug": "nodemon --inspect ./src/config/server/index.ts"
   },
