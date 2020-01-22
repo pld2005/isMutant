@@ -2,10 +2,10 @@ import * as Joi from 'joi';
 import DnaModel, { IDnaModel } from './model';
 import DnaValidation from './validation';
 import { IDnaService } from './interface';
-import { Types } from 'mongoose';
+// import { Types } from 'mongoose';
 import * as mutant from './module';
-import { stats } from '.';
-import { stat } from 'fs';
+// import { stats } from '.';
+// import { stat } from 'fs';
 
 
 

@@ -13,9 +13,9 @@
   "paths": {
     "/api/mutant/": {
       "post": {
-        "description": "Verificar si sequencia de ADN es mutante",
+        "description": "Verificar si la sequencia de ADN es mutante",
         "tags": [
-          "isMutant"
+          "mutant"
         ],
         "requestBody": {
           "description": "Sequencia ADN",
@@ -33,7 +33,7 @@
         },
         "responses": {
           "200": {
-            "description": "Es mutante",
+            "description": "Responde status HTTP 200-OK, si la sequencia de ADN es mutante",
             "content": {
               "appication/json": {
                 "example": {
@@ -44,7 +44,7 @@
             }
           },
           "403": {
-            "description": "NO es mutante",
+            "description": "Responde status HTTP 403-Forbidden, si la sequencia de ADN NO mutante",
             "content": {
               "application/json": {
                 "example": {
@@ -117,25 +117,6 @@
             "ratio": {
               "type": "decimal"
             }
-          }
-        }
-      },
-      "Error": {
-        "type": "object",
-        "required": [
-          "status",
-          "message"
-        ],
-        "properties": {
-          "status": {
-            "type": "integer",
-            "description": "HTTP status code",
-            "example": 200
-          },
-          "message": {
-            "type": "string",
-            "description": "Error description",
-            "example": "User created"
           }
         }
       }

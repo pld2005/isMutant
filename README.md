@@ -91,10 +91,7 @@ yo node-express-typescript-api
 To start the application in development mode, run:
 
 ```bash
-npm install -g nodemon
-npm install -g ts-node
-npm install -g typescript
-npm install
+npm install -g nodemon && npm install -g ts-node && npm install -g typescript && npm install
 ```
 
 Start the application in dev env:

@@ -33,6 +33,34 @@ describe('API', () => {
             })
             .end(done);
     });
+
+    it('is mutant whitout parameters', (done) => {
+        
+        request(app)
+            .post('/api/mutant')
+            .expect((res) => {
+                res.status.should.equal(500);
+            })
+            .end(done);
+    });
+
+    it('Get Stats', (done) => {
+        request(app)
+            .get('/api/stats')
+            .expect((res) => {
+                res.status.should.equal(200);
+            })
+            .end(done);
+    });
+
+    it('Error 404', (done) => {
+        request(app)
+            .get('/api/xxxx')
+            .expect((res) => {
+                res.status.should.equal(404);
+            })
+            .end(done);
+    });
 });
 
 /**

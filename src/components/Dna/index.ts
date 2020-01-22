@@ -13,18 +13,14 @@ export async function mutant(req: Request, res: Response, next: NextFunction): P
             res.sendStatus(403);
         }    
     } catch (error) {
-        next(new HttpError(error.message.status, error.message));
+        next(new HttpError(500, error.message));
     }
 }
 
 export async function stats(req: Request, res: Response, next: NextFunction): Promise < void > {
-    try {
-        const stats: IDnaModel = await DnaService.stats();
+    const stats: IDnaModel = await DnaService.stats();
 
-        res.status(200).json(stats);
-    } catch (error) {
-        next(new HttpError(error.message.status, error.message));
-    }
+    res.status(200).json(stats);
 }
 
 

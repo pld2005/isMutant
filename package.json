@@ -21,7 +21,8 @@
     "build": "tsc --skipLibCheck",
     "start": "tsc --skipLibCheck && node ./build/config/server/index.js",
     "ts:watch": "tsc -w",
-    "test": "nodemon --watch . --ext ts --exec \"mocha -r ts-node/register test/**/*.js\"",
+    "test": "nodemon  . --ext ts --exec \"nyc mocha -r ts-node/register test/**/*.js\"",
+    "coverage": "nyc --reporter=lcov --reporter=text-lcov npm test",
     "dev:debug": "nodemon --inspect ./src/config/server/index.ts"
   },
   "files": [
@@ -71,6 +72,7 @@
     "jsdoc": "^3.6.3",
     "mocha": "6.2.0",
     "nodemon": "^1.18.10",
+    "nyc": "^15.0.0",
     "source-map-loader": "0.2.4",
     "supertest": "4.0.2",
     "swagger-jsdoc": "^3.5.0",

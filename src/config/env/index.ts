@@ -19,7 +19,7 @@ const development: IConfig = {
     port: process.env.PORT || 3000,
     database: {
         MONGODB_URI: process.env.MONGODB_URI || 'mongodb://localhost:27017/',
-        MONGODB_DB_MAIN: process.env.MONGODB_DB_MAIN || 'database8'
+        MONGODB_DB_MAIN: process.env.MONGODB_DB_MAIN || 'mutant'
     },
     secret: process.env.SECRET || '@QEGTUI',
     secure: false,
@@ -31,7 +31,7 @@ const production: IConfig = {
     port: process.env.PORT || 3000,
     database: {
         MONGODB_URI: process.env.MONGODB_URI || 'mongodb://production_uri/',
-        MONGODB_DB_MAIN: process.env.MONGODB_DB_MAIN || 'database8'
+        MONGODB_DB_MAIN: process.env.MONGODB_DB_MAIN || 'mutant'
     },
     secret: process.env.SECRET || '@QEGTUI',
     secure: false,
@@ -42,7 +42,7 @@ const test: IConfig = {
     port: process.env.PORT || 3000,
     database: {
         MONGODB_URI: process.env.MONGODB_URI || 'mongodb://localhost:27017',
-        MONGODB_DB_MAIN: 'test_users_db'
+        MONGODB_DB_MAIN: 'test_mutant'
     },
     secret: process.env.SECRET || '@QEGTUI',
     secure: false,

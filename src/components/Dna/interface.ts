@@ -9,9 +9,4 @@ export interface IDnaService {
 
     stats(): Promise<any>;
 
-    // findOne(dna: string): Promise<IDnaModel>;
-
-    // insert(IDnaModel: IDnaModel): Promise<IDnaModel>;
-
-    // remove(id: string): Promise<IDnaModel>;
 }

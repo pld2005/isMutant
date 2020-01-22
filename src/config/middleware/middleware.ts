@@ -60,15 +60,16 @@ export function initErrorHandler(app: express.Application): void {
         if (error instanceof HttpError) {
             res.sendHttpError(error);
         } else {
-            if (app.get('env') === 'development') {
-                error = new HttpError(500, error.message);
-                res.sendHttpError(error);
-            } else {
-                error = new HttpError(500);
-                res.sendHttpError(error, error.message);
-            }
+            // if (app.get('env') === 'development') {
+            //     error = new HttpError(500, error.message);
+            //     res.sendHttpError(error);
+            // } else {
+            error = new HttpError(500);
+            res.sendHttpError(error, error.message);
+            // }
         }
 
         console.error(error);
     });
 }
+

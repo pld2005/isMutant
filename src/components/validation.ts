@@ -7,7 +7,7 @@ import { Types } from 'mongoose';
  */
 abstract class Validation {
     // can`t assign to customJoi any type of Joi Schemas - because of custom field objectId. Need to discuss this
-    customJoi: any;
+    // customJoi: any;
 
     /**
      * @static
@@ -22,29 +22,29 @@ abstract class Validation {
      * @memberof JoiSchema
      */
     constructor() {
-        this.customJoi = Joi.extend({
-            name: 'objectId',
-            language: {
-                base: this.messageObjectId
-            },
-            pre(
-                value: string,
-                state: Joi.State,
-                options: Joi.ValidationOptions
-            ): Object | string {
-                if (!Types.ObjectId.isValid(value)) {
-                    return this.createError(
-                        'objectId.base', {
-                            value
-                        },
-                        state,
-                        options
-                    );
-                }
+        // this.customJoi = Joi.extend({
+        //     name: 'objectId',
+        //     language: {
+        //         base: this.messageObjectId
+        //     },
+        //     pre(
+        //         value: string,
+        //         state: Joi.State,
+        //         options: Joi.ValidationOptions
+        //     ): Object | string {
+        //         if (!Types.ObjectId.isValid(value)) {
+        //             return this.createError(
+        //                 'objectId.base', {
+        //                     value
+        //                 },
+        //                 state,
+        //                 options
+        //             );
+        //         }
 
-                return value; // Keep the value as it was
-            }
-        });
+        //         return value; // Keep the value as it was
+        //     }
+        // });
     }
 }
 

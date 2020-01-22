@@ -46,28 +46,10 @@ export function sendHttpErrorModule(req: Request, res: any, next: NextFunction):
                 message: error.message
             });
         } else {
-            res.send(generateHTML(error));
+            res.send(error);
         }
     };
 
     next();
 }
-
-/**
- * 
- * @param error Error
- * @returns {string} HTML response or empty string
- * @description generates HTML for response
- */
-const generateHTML: Function = (error: HttpError): string => {
-    if (error) {
-        return '<div style=\'text-align: center;\'>' +
-            `<p>Status: ${error.status}</p>` +
-            `<p>Name: ${error.name}</p>` +
-            `<p>${error}</p>` +
-        `</div>`;
-    }
-
-    return '';
-};
 
