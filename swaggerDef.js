@@ -9,7 +9,7 @@ module.exports = {
         description: 'Test mercadolibre', // Description (optional)
     },
     servers: [
-        { url: 'http://localhost:3000' }
+        { url: 'http://64.225.39.218:3000' }
     ],
     apis: [path.join(__dirname, './src/**/**/*.ts')]
 };
