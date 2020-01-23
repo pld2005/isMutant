@@ -12,6 +12,7 @@ En donde recibirás como parámetro un array de Strings que representan cada fil
 ###### NO MUTANTE
 
 | A | T | G | C | G | A |
+|---|---|---|---|---|---|
 | C | A | G | T | G | C |
 | T | T | A | T | T | T |
 | A | G | A | C | G | G |
@@ -21,6 +22,7 @@ En donde recibirás como parámetro un array de Strings que representan cada fil
 ###### MUTANTE
 
 | A | T | G | C | G | A |
+|---|---|---|---|---|---|
 | C | A | G | T | G | C |
 | T | T | A | T | G | T |
 | A | G | A | A | G | G |
@@ -125,7 +127,7 @@ Para ejecutar las pruebas:
 npm test
 ```
 
-Para Code Coverage:
+Ejecutar Code Coverage:
 ```bash
 npm run coverage
 ```
@@ -144,7 +146,6 @@ Se utiliza Swagger para documentar la Api. disponible en:
 http://localhost:3000/docs
 ```
 ![Alt Text](https://i.ibb.co/b6SdyQV/gif1.gif)
-
 
 ## App skeleton
 ```
@@ -190,3 +191,93 @@ http://localhost:3000/docs
 └── tslint.json
 ```
 
+##### Instruciones para ejecutar Desafios:
+
+## Nivel 1
+
+Ejemplo de uso:
+```sh
+//importar modulo
+import * as mutant from './components/Dna/module.ts';
+
+//ADN
+let body = {dna: ['AAAT','CCGG','AAAA','GGCC']};
+
+//Verificar ADN
+console.log(mutant.isMutant(body));
+```
+
+## Nivel 2
+
+Endpoint API: 'http://localhost:3000/api/mutant'
+Metodo: POST
+Content-Type: application/json
+Data: '{"dna": ["AAAT","CCGG","AAAA","GGCC"]}'
+
+```sh
+// desde terminal
+curl --location --request POST 'http://localhost:3000/api/mutant' \
+--header 'Content-Type: application/json' \
+--data-raw '{"dna": ["AAAT","CCGG","AAAA","GGCC"]}'
+
+//llamapa POST desde node
+var request = require('request');
+var options = {
+  'method': 'POST',
+  'url': 'http://localhost:3000/api/mutant',
+  'headers': {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({"dna":["AAAT","CCGG","AAAA","GGCC"]})
+
+};
+request(options, function (error, response) { 
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
+
+//desde Swagger
+
+Ingresar a http://localhost:3000/docs
+
+```
+![Alt Text](https://i.ibb.co/LPhMqtn/mutant.gif)
+
+
+## Nivel 3
+
+
+Endpoint API: 'http://localhost:3000/api/stats'
+Metodo: GET
+Content-Type: application/json
+
+```sh
+
+// desde terminal
+
+curl --location --request GET 'http://localhost:3000/api/stats' \
+--header 'Content-Type: application/json'
+
+// llamada GET dede node
+
+var request = require('request');
+var options = {
+  'method': 'GET',
+  'url': 'http://localhost:3000/api/stats',
+  'headers': {
+    'Content-Type': 'application/json'
+  }
+};
+request(options, function (error, response) { 
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
+
+
+//desde Swagger
+
+Ingresar a http://localhost:3000/docs
+
+```
+
+![Alt Text](https://i.ibb.co/Xp3Rkgp/stats.gif)

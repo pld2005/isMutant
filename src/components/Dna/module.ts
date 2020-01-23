@@ -1,3 +1,4 @@
+import DnaValidation from './validation';
 // secuencias ADN a buscar
 const dnaSequence : string[] = ['AAAA', 'TTTT', 'CCCC', 'GGGG'];
 // cantidad minima para considerarlo mutante
@@ -5,8 +6,14 @@ const minSequence : number = 2;
 // cantidad de secuencias encontradas
 let mutantSequenceFound : number = 0;
 
-export function isMutant(dna: string): boolean {
-    const dnaArray : string[] = Array.from(dna);
+export function isMutant(body: any): boolean {
+    const validate: any = DnaValidation.isDna(body);
+            
+    if (validate) {
+        throw new Error(validate.error.message);
+    }
+
+    const dnaArray : string[] = Array.from(body.dna);
 
     mutantSequenceFound = 0;
     horizontalSearch(dnaArray); // buscar secuencias en filas
