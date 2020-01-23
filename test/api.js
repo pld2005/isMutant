@@ -44,6 +44,32 @@ describe('API', () => {
             .end(done);
     });
 
+    it('Not quadratic matrix', (done) => {
+        const dna = {
+            dna: ["ATCG","GCTA","TGCA","TGCA","CAGT"]
+        }
+        request(app)
+            .post('/api/mutant')
+            .send(dna)
+            .expect((res) => {
+                res.status.should.equal(500);
+            })
+            .end(done);
+    });
+
+    it('Incorrect values (Only A,G,T,C)', (done) => {
+        const dna = {
+            dna: ["ATCG","GCTA","XATG","TGCA","CAGT"]
+        }
+        request(app)
+            .post('/api/mutant')
+            .send(dna)
+            .expect((res) => {
+                res.status.should.equal(500);
+            })
+            .end(done);
+    });
+
     it('Get Stats', (done) => {
         request(app)
             .get('/api/stats')

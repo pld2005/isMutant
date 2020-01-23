@@ -1,44 +1,151 @@
-# Node.js Express API with TypeScript 3
+# Test Mercado Libre - Buscar secuencia de ADN mutante
 
-> Node.js Express API with TypeScript 3. Supports MongoDB
+- ### Enunciado:
+Magneto quiere reclutar la mayor cantidad de mutantes para poder luchar contra los X-Mens.
+Te ha contratado a ti para que desarrolles un proyecto que detecte si un humano es mutante basándose en su secuencia de ADN.
+Para eso te ha pedido crear un programa con un método o función con la siguiente firma:
 
-## Description
-This generator will help you to build your own Node.js Express Mongodb API using TypeScript 3.
+##### boolean isMutant(String[] dna);
 
-### Project Introduction
-- suppot ES6/ES7 features
-- using tslint followed [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
+En donde recibirás como parámetro un array de Strings que representan cada fila de una tabla de (NxN) con la secuencia del ADN. Las letras de los Strings solo pueden ser: (A,T,C,G), las cuales representa cada base nitrogenada del ADN.
 
-## Features
-##### Session Storage:
+###### NO MUTANTE
+
+| A | T | G | C | G | A |
+| C | A | G | T | G | C |
+| T | T | A | T | T | T |
+| A | G | A | C | G | G |
+| G | C | G | T | C | A |
+| T | C | A | C | T | G |
+
+###### MUTANTE
+
+| A | T | G | C | G | A |
+| C | A | G | T | G | C |
+| T | T | A | T | G | T |
+| A | G | A | A | G | G |
+| C | C | C | C | T | A |
+| T | C | A | C | T | G |
+
+Sabrás si un humano es mutante, si encuentras más de una secuencia de cuatro letras iguales , de forma oblicua, horizontal o vertical.
+
+Ejemplo (Caso mutante):
+
+##### String[] dna = {"ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"};
+
+En este caso el llamado a la función isMutant(dna) devuelve “true”.
+Desarrolla el algoritmo de la manera más eficiente posible.
+
+##### Desafíos:
+
+### Nivel 1:
+
+Programa (en cualquier lenguaje de programación) que cumpla con el método pedido por
+Magneto.
+
+### Nivel 2:
+
+Crear una API REST, hostear esa API en un cloud computing libre (Google App Engine,
+Amazon AWS, etc), crear el servicio “/mutant/” en donde se pueda detectar si un humano es
+mutante enviando la secuencia de ADN mediante un HTTP POST con un Json el cual tenga el
+siguiente formato:
+
+```sh
+POST → /mutant/
+{
+“dna”:["ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"]
+}
+```
+
+En caso de verificar un mutante, debería devolver un HTTP 200-OK, en caso contrario un 403-Forbidden
+
+### Nivel 3:
+
+Anexar una base de datos, la cual guarde los ADN’s verificados con la API.
+Solo 1 registro por ADN.
+Exponer un servicio extra “/stats” que devuelva un Json con las estadísticas de las verificaciones de ADN: {“count_mutant_dna”:40, “count_human_dna”:100: “ratio”:0.4}
+Tener en cuenta que la API puede recibir fluctuaciones agresivas de tráfico (Entre 100 y 1 millón de peticiones por segundo).
+Test-Automáticos, Code coverage > 80%, Diagrama de Secuencia / Arquitectura del sistema.
+
+## Características
+##### Arquitectura:
+- Nodejs
+- Expressjs
 - MongoDB
-- Redis
-##### Integration testing
+- Mongoose
+- typescript
+
+##### Testing
 - mocha
 - chai
 - supertest
+- Istanbul (nyc)
 
-## Requirements
+## Requirimientos
 
 - node >= 10
 - npm >= 6
 - mongodb >= 3.0
 - typescript >= 3.0
 
-## Installation
+## Instalación
 
-First, install [Yeoman](http://yeoman.io) and generator-node-express-typescript-api using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
+- Clonar repositorio
+- Instalar dependencias
+    - npm install -g nodemon 
+    - npm install -g ts-node 
+    - npm install -g typescript 
+    - npm install
 
-```bash
-npm install -g yo
-npm install -g generator-node-express-typescript-api
+## Desplegar API
+### Development
+Para iniciar la aplicación en modo desarrollo:
+
+```
+nodemon
+```
+Para iniciar en la aplicacion en producción::
+
+Instalar pm2 y pm2-typescript:
+```
+npm install -g pm2
+pm2 install typescript
 ```
 
-Then generate your new project:
-
-```bash
-yo node-express-typescript-api
+Ejemplo para desplegar:
 ```
+pm2 start ./src/index.ts -i 2 --no-daemon
+```
+
+El servicio Express escuchará las peticiones en http://localhost:3000/
+
+### Testing y Cobertura de Código
+Para ejecutar las pruebas: 
+```bash
+npm test
+```
+
+Para Code Coverage:
+```bash
+npm run coverage
+```
+
+El resultado se muestra en https://htmlpreview.github.io/?https://github.com/pld2005/isMutant/blob/master/coverage/lcov-report/index.html
+
+## Configurar ambiente
+En la carpeta raiz encontrará el archivo `.env`. Puede usar esa configuración o cambiarla según sea necesario.
+Si desea agregar nuevas variables, debe agregarlas al objeto de configuracion e interface (Ver `src/config/index.ts`)
+
+
+## Documentación de API 
+
+Se utiliza Swagger para documentar la Api. disponible en: 
+```bash
+http://localhost:3000/docs
+```
+![Alt Text](https://i.ibb.co/b6SdyQV/gif1.gif)
+
+
 ## App skeleton
 ```
 .
@@ -48,15 +155,11 @@ yo node-express-typescript-api
 ├── package.json
 ├── src
 │   ├── components
-│   │   ├── Auth
-│   │   │   ├── index.ts
-│   │   │   ├── interface.ts
-│   │   │   ├── service.ts
-│   │   │   └── validation.ts
-│   │   ├── User
+│   │   ├── Dna
 │   │   │   ├── index.ts
 │   │   │   ├── interface.ts
 │   │   │   ├── model.ts
+│   │   │   ├── module.ts
 │   │   │   ├── service.ts
 │   │   │   └── validation.ts
 │   │   ├── index.ts
@@ -71,79 +174,19 @@ yo node-express-typescript-api
 │   │   │   └── sendHttpError.ts
 │   │   ├── middleware
 │   │   │   ├── middleware.ts
-│   │   │   └── passport.ts
 │   │   └── server
-│   │       ├── ServerInterface.ts
 │   │       ├── index.ts
 │   │       ├── server.ts
 │   │       └── serverHandlers.ts
-│   └── routes
-│       ├── AuthRouter.ts
-│       ├── UserRouter.ts
-│       └── index.ts
+│   ├── routes
+│   │     ├── DnaRouter.ts
+│   │     └── index.ts
+│   └── test
+│         ├── api.js
+│         └── index.js
 ├── swagger.json
 ├── swaggerDef.js
 ├── tsconfig.json
 └── tslint.json
 ```
-## Running the API
-### Development
-To start the application in development mode, run:
 
-```bash
-npm install -g nodemon && npm install -g ts-node && npm install -g typescript && npm install
-```
-
-Start the application in dev env:
-```
-nodemon
-```
-Start the application in production env:
-
-Install ts pm2 and typescript compiler:
-```
-npm install -g pm2
-pm2 install typescript
-```
-
-example start with scale on 2 core:
-```
-pm2 start ./src/index.ts -i 2 --no-daemon
-```
-
-Express server listening on http://localhost:3000/, in development mode
-The developer mode will watch your changes then will transpile the TypeScript code and re-run the node application automatically.
-
-### Testing
-To run integration tests: 
-```bash
-npm test
-```
-
-## Set up environment
-In root folder you can find `.env`. You can use this config or change it for your purposes.
-If you want to add some new variables, you also need to add them to interface and config object (Look `src/config/index.ts`)
-
-## Usage as OAuth2.0 Server
-To use this generator as OAuth2.0 server you should implement client side, that will be handle your redirectUris and make requests to `/auth/token/` route. [Read more about OAuth2.0](https://alexbilbie.com/guide-to-oauth-2-grants/)
-
-## Swagger
-```bash
-npm install -g swagger-jsdoc
-swagger-jsdoc -d swaggerDef.js -o swagger.json
-```
-Swagger documentation will be available on route: 
-```bash
-http://localhost:3000/docs
-```
-![Alt Text](https://i.ibb.co/b6SdyQV/gif1.gif)
-
-## Getting To Know Yeoman
-
- * Yeoman has a heart of gold.
- * Yeoman is a person with feelings and opinions, but is very easy to work with.
- * Yeoman can be too opinionated at times but is easily convinced not to be.
- * Feel free to [learn more about Yeoman](http://yeoman.io/).
-
-[travis-image]: https://travis-ci.org/caiobsouza/generator-ts-node-api.svg?branch=master
-[travis-url]: https://travis-ci.org/caiobsouza/generator-ts-node-api

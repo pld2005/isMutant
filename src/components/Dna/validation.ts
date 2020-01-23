@@ -17,20 +17,6 @@ class DnaValidation extends Validation {
 
         return Joi.validate(params, schema);
     }
-    // isDna(
-    //     body: {
-    //         dna: string
-    //     }
-    // ): Joi.ValidationResult < {
-    //     dna: string
-    // } > {
-    //     const schema: Joi.Schema = Joi.object().keys({
-    //         dna: this.customJoi.objectId().required()
-    //     });
-
-    //     return Joi.validate(body, schema);
-    // }
-
 }
 
 export default new DnaValidation();

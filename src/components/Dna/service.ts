@@ -15,13 +15,34 @@ const DnaService: IDnaService = {
     async mutant(body: IDnaModel): Promise < boolean > {
 
         try {
+            
             const validate: Joi.ValidationResult < IDnaModel > = DnaValidation.isDna(body);
-
-            // console.log(validate);
+            
             if (validate.error) {
                 throw new Error(validate.error.message);
             }
             
+            const dna: any = body.dna;
+            let incorrectSequence : boolean = false;
+
+            const isQuadratic : boolean[] = dna.map((sequence: string) => {
+                if ((/[^A,T,C,G]/i).test(sequence)) {
+                    incorrectSequence = true;        
+                    console.log('Base nitrogenada incorrecta');
+                }
+                if (sequence.length !== dna.length) {
+                    return false;
+                } 
+                }).filter((value: boolean) => value !== undefined);
+            
+            if (isQuadratic.length > 0) {
+                throw new Error('La matriz de ADN debe ser cuadrada (N x N)');
+            }
+               
+            if (incorrectSequence) { 
+                throw new Error('Base nitrogenada incorrecta. Solo se permiten los valores A, T, G y C');
+            }
+
             const isMutant : boolean = mutant.isMutant(body.dna);
             
             
