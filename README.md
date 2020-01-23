@@ -280,4 +280,4 @@ Ingresar a http://localhost:3000/docs
 
 ```
 
-![Alt Text](https://i.ibb.co/Xp3Rkgp/stats.gif)
+![Alt Text](https://i.ibb.co/4Ps5kgY/stats.gif)
