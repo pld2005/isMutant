@@ -65,7 +65,7 @@ En caso de verificar un mutante, debería devolver un HTTP 200-OK, en caso contr
 
 Anexar una base de datos, la cual guarde los ADN’s verificados con la API.
 Solo 1 registro por ADN.
-Exponer un servicio extra “/stats” que devuelva un Json con las estadísticas de las verificaciones de ADN: {“count_mutant_dna”:40, “count_human_dna”:100: “ratio”:0.4}
+Exponer un servicio extra “/stats” que devuelva un Json con las estadísticas de las verificaciones de ADN: {“count_mutant_dna”:40, “count_human_dna”: 100: “ratio”:0.4}
 Tener en cuenta que la API puede recibir fluctuaciones agresivas de tráfico (Entre 100 y 1 millón de peticiones por segundo).
 Test-Automáticos, Code coverage > 80%, Diagrama de Secuencia / Arquitectura del sistema.
 
