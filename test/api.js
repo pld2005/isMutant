@@ -59,7 +59,7 @@ describe('API', () => {
 
     it('Incorrect values (Only A,G,T,C)', (done) => {
         const dna = {
-            dna: ["ATCG","GCTA","XATG","TGCA","CAGT"]
+            dna: ["ATCG","GCTA","XATG","TGCA"]
         }
         request(app)
             .post('/api/mutant')
@@ -69,6 +69,33 @@ describe('API', () => {
             })
             .end(done);
     });
+
+    it('DNA min length', (done) => {
+        const dna = {
+            dna: ["ATCG","GCTA","XATG"]
+        }
+        request(app)
+            .post('/api/mutant')
+            .send(dna)
+            .expect((res) => {
+                res.status.should.equal(500);
+            })
+            .end(done);
+    });
+
+    it('DNA not Array', (done) => {
+        const dna = {
+            dna: "AAAA"
+        }
+        request(app)
+            .post('/api/mutant')
+            .send(dna)
+            .expect((res) => {
+                res.status.should.equal(500);
+            })
+            .end(done);
+    });
+
 
     it('Get Stats', (done) => {
         request(app)
