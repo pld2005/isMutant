@@ -70,7 +70,7 @@ Tener en cuenta que la API puede recibir fluctuaciones agresivas de tráfico (En
 Test-Automáticos, Code coverage > 80%, Diagrama de Secuencia / Arquitectura del sistema.
 
 ## Características
-##### Arquitectura:
+##### Tecnología:
 - Nodejs
 - Expressjs
 - MongoDB
@@ -83,7 +83,7 @@ Test-Automáticos, Code coverage > 80%, Diagrama de Secuencia / Arquitectura del
 - supertest
 - Istanbul (nyc)
 
-## Requirimientos
+## Requerimientos
 
 - node >= 10
 - npm >= 6
