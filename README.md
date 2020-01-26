@@ -116,7 +116,7 @@ pm2 install typescript
 
 Ejemplo para desplegar:
 ```
-pm2 start ./src/index.ts -i 2 --no-daemon
+pm2 start ./src/config/server/index.ts
 ```
 
 El servicio Express escuchará las peticiones en http://localhost:3000/
