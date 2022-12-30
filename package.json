@@ -68,7 +68,7 @@
     "@types/swagger-ui-express": "3.0.0",
     "chai": "4.2.0",
     "jsdoc": "^3.6.3",
-    "mocha": "6.2.0",
+    "mocha": "10.2.0",
     "nodemon": "^1.18.10",
     "nyc": "^15.0.0",
     "source-map-loader": "0.2.4",
